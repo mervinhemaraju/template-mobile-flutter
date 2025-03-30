@@ -1,0 +1,35 @@
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        generate_for:
+          - lib/data/providers/**.dart
+          - lib/core/models/**.dart
+          - lib/core/router/**.dart
+          # - lib/ui/pages/**/*_provider.dart
+        options:
+          build_extensions:
+            '^lib/data/providers/{{}}.dart': 'lib/generated/data/providers/{{}}.g.dart'
+            '^lib/core/models/{{}}.dart': 'lib/generated/core/models/{{}}.g.dart'
+            '^lib/core/router/{{}}.dart': 'lib/generated/core/router/{{}}.g.dart'
+            # '^lib/ui/pages/{{}}_provider.dart': 'lib/generated/pages/{{}}_provider.g.dart'
+      
+      # Configure freezed
+      freezed:
+        generate_for:
+          - lib/core/models/*.dart
+          # - lib/ui/pages/**.dart
+        options:
+          build_extensions:
+            '^lib/core/models/{{}}.dart': 'lib/generated/core/models/{{}}.freezed.dart'
+            # '^lib/ui/pages/{{}}.dart': 'lib/generated/pages/{{}}.freezed.dart'
+
+      # Ensure the combining builder picks up all generated files
+      # combining_builder:
+      #   options:
+      #     build_extensions:
+      #       '^lib/core/models/{{}}.dart':
+      #         - 'lib/core/models/{{}}.freezed.dart'
+            # '^lib/ui/pages/{{}}.dart':
+            #   - 'lib/generated/pages/{{}}.freezed.dart'
+            #   - 'lib/generated/pages/{{}}.g.dart'
